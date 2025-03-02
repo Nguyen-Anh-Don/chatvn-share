@@ -1,0 +1,221 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Lời chúc tết 2025
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.3@e12f2cbb2e1077762e4c6ddd3a7d78cf0c4caa973f01e80693f9a99c61f74a83
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      - .MP4
+      - .MOV
+      - .MPEG
+      - .MPGA
+      allowed_file_types: []
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - remote_url
+        - local_file
+      number_limits: 3
+    opening_statement: Nhấn nút "Tạo ngay" để tạo lời chúc nhé
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      configs: []
+      enabled: false
+      type: ''
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - Tạo ngay
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: llm
+      id: start-llm
+      source: start
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    nodes:
+    - data:
+        selected: false
+        title: START
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types: []
+          allowed_file_upload_methods: []
+          description: ''
+          label: Loại tết
+          max_length: null
+          options:
+          - Dương Lịch
+          - Âm Lịch
+          required: true
+          type: select
+          variable: loai_tet
+        - allowed_file_extensions: []
+          allowed_file_types: []
+          allowed_file_upload_methods: []
+          description: ''
+          label: Đối tượng
+          max_length: null
+          options:
+          - Gia đình
+          - Người yêu
+          - Bạn bè
+          - Đồng nghiệp
+          - Đối tác
+          required: true
+          type: select
+          variable: doi_tuong
+        - allowed_file_extensions: []
+          allowed_file_types: []
+          allowed_file_upload_methods: []
+          description: ''
+          label: Ngôn ngữ
+          max_length: null
+          options:
+          - Tiếng Việt
+          - Tiếng Anh
+          required: true
+          type: select
+          variable: ngon_ngu
+        - label: 'Tên người nhận '
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: nguoi_nhan
+      height: 168
+      id: start
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: null
+        memory:
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+        model:
+          completion_params:
+            stop: []
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: 03401362-490c-451b-8c0a-f4171bf6a119
+          role: user
+          text: "# Role\nBạn là một AI chuyên tạo ra những lời chúc mừng năm mới 2025\
+            \ độc đáo và ý nghĩa, phù hợp với từng đối tượng và phong cách khác nhau.\n\
+            \nLoại Tết: {{#start.loai_tet#}}\n\nĐối tượng nhận lời chúc: {{#start.doi_tuong#}}\n\
+            \nTên người nhận: {{#start.nguoi_nhan#}}\n\nNgôn ngữ đầu ra: {{#start.ngon_ngu#}}\n\
+            \n## Nhiệm vụ: Tạo lời chúc mừng năm mới\n- Nếu Loại tết thì Âm lịch thì\
+            \ 2025 là Ất Tỵ 2025\n- Dựa trên thông tin trên, tạo một lời chúc mừng\
+            \ năm mới phù hợp:\n  - Nếu đối tượng là \"gia đình\", lời chúc nên mang\
+            \ tính gần gũi, ấm áp.\n  - Nếu đối tượng là \"người yêu\", lời chúc nên\
+            \ lãng mạn và tình cảm.\n  - Nếu đối tượng là \"bạn bè\", lời chúc nên\
+            \ vui vẻ và thân thiện.\n  - Nếu đối tượng là \"đồng nghiệp\" hoặc \"\
+            đối tác\", lời chúc nên trang trọng và chuyên nghiệp.\n- Đảm bảo rằng\
+            \ lời chúc không vượt quá 100 từ và phù hợp với ngữ cảnh.\n\n## Constraints\n\
+            - Đầu ra không được chứa bất kỳ thẻ XML nào."
+        - id: a350f891-c2a0-4a31-8697-9ce4de398a34
+          role: assistant
+          text: ''
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          configs: null
+          enabled: false
+          variable_selector: null
+      height: 90
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: true
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: ANSWER
+        type: answer
+      height: 103
+      id: answer
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      type: custom
+      width: 244
+    viewport:
+      x: -19.639613086308145
+      y: -8.047216309236092
+      zoom: 1.0093982020218208
