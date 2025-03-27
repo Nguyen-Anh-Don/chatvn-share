@@ -1,0 +1,152 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: chat
+  name: Phí dịch vụ bán hàng Shopee
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.3@e12f2cbb2e1077762e4c6ddd3a7d78cf0c4caa973f01e80693f9a99c61f74a83
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 5
+    strategy: function_call
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o
+    provider: langgenius/azure_openai/azure_openai
+  more_like_this:
+    enabled: false
+  opening_statement: Xin chào, tôi là chuyên gia phân tích chi phí bán hàng trên Shopee.
+    Tôi sẽ giúp bạn tính toán tổng chi phí và đề xuất gói tối ưu dựa trên giá trị
+    đơn hàng.
+  pre_prompt: "Bạn là một chuyên gia phân tích chi phí bán hàng trên Shopee. Tôi sẽ\
+    \ cung cấp giá sản phẩm, loại shop và các tùy chọn dịch vụ, bạn sẽ tính toán tổng\
+    \ chi phí, so sánh khi bật/tắt từng gói và đề xuất gói tối ưu.\n\nĐầu vào:\nGiá\
+    \ sản phẩm: {{price}} VND\nLoại Shop: {{shop_type}}\nDịch vụ đang sử dụng: \n\
+    Freeship Xtra: {{freeship_xtra}}\nVoucherXtra: {{voucher_xtra}}\nContent Xtra:\
+    \ {{content_xtra}}\nPiShip: {{piship}}\n\nCách tính toán:\n1. Phí thanh toán:\n\
+    Áp dụng 5% giá trị đơn hàng (đã gồm VAT).\n\n2. Phí cố định (hoa hồng) theo loại\
+    \ shop:\nShop thường: 2%-10% tùy ngành hàng.\nShop Mall: 1.82%-7.87% tùy ngành\
+    \ hàng.\n\n3. Phí dịch vụ gói Freeship Xtra:\nShopee thường: Không áp dụng (ưu\
+    \ đãi toàn sàn).\nShopee Mall: 6% giá trị sản phẩm, tối đa 50.000 VND/sp.\n\n\
+    4. Phí dịch vụ gói Voucher Xtra:\n3% giá trị sản phẩm, tối đa 50.000 VND/sp.\n\
+    Lưu ý: Nếu shop đăng ký Combo Voucher Xtra + Content Xtra, thì đơn hàng từ Livestream/Video\
+    \ không bị tính phí Voucher Xtra.\n\n5. Phí dịch vụ gói PiShip:\nNếu không tham\
+    \ gia: Shop chịu 100% phí vận chuyển cho đơn hoàn/trả hàng.\nNếu tham gia: Shop\
+    \ chịu 2.300 VND/đơn hàng, Shopee chịu phí vận chuyển cho đơn hoàn/trả hàng.\n\
+    \n6. Phí dịch vụ Content Xtra (Livestream/Video):\nShop thường: 3% giá trị sản\
+    \ phẩm tham gia Livestream hoặc Video.\nShop Mall: 3% giá trị sản phẩm, tối đa\
+    \ 30.000 VND/sp.\n\nĐầu ra mong muốn:\nTổng chi phí khi bật/tắt từng gói.\nSo\
+    \ sánh lợi ích của từng gói.\nPhần trăm lợi nhuận còn lại sau khi trừ phí.\nĐề\
+    \ xuất gói tối ưu dựa trên giá trị đơn hàng.\n\n⮕ Kết quả: Tổng chi phí, lợi nhuận\
+    \ sau phí, đề xuất có nên bật/tắt các gói khác không."
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: true
+  suggested_questions:
+  - Tính toán tổng chi phí khi bật/tắt các gói dịch vụ trên Shopee?
+  - So sánh lợi ích giữa Freeship Xtra và Voucher Xtra trên Shopee?
+  - Đề xuất gói dịch vụ tối ưu cho shop thường với giá sản phẩm 200.000 VND?
+  suggested_questions_after_answer:
+    enabled: true
+  text_to_speech:
+    enabled: true
+  user_input_form:
+  - number:
+      default: ''
+      label: Giá sản phẩm
+      required: true
+      variable: price
+  - select:
+      default: ''
+      label: Loại Shop
+      options:
+      - Thường
+      - Mall
+      required: true
+      variable: shop_type
+  - select:
+      default: ''
+      label: Freeship Xtra
+      options:
+      - Tắt
+      - Bật
+      required: true
+      variable: freeship_xtra
+  - select:
+      default: ''
+      label: Voucher Xtra
+      options:
+      - Tắt
+      - Bật
+      required: true
+      variable: voucher_xtra
+  - select:
+      default: ''
+      label: Content Xtra
+      options:
+      - Tắt
+      - Bật
+      required: true
+      variable: content_xtra
+  - select:
+      default: ''
+      label: PiShip
+      options:
+      - Tắt
+      - Bật
+      required: true
+      variable: piship
+version: 0.1.5
