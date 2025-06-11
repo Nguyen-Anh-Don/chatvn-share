@@ -1,0 +1,492 @@
+app:
+  description: Kiểm tra website chỉ trong vài giây! AI hỗ trợ kiểm tra hoạt động website,
+    SEO on-page, tốc độ tải, thẻ meta, favicon, sitemap và hơn 40 tiêu chí khác. Hỗ
+    trợ phân tích chuyên sâu, xuất báo cáo, API và kiểm tra định kỳ. Dễ dùng, mạnh
+    mẽ, miễn phí
+  icon: 🧠
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: Kiểm tra SEO
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.16@e9ebc92e972ae473fc1c26ce215b88ba8780e44dab883685a61bf15e2c11a00d
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: a27ccfeb-fe10-4515-ae5c-b402186dff9c
+    name: alert_http
+    selector:
+    - env
+    - alert_http
+    value: Liên kết trang web cần có https:// ví dụ https://chatvn.org
+    value_type: string
+  - description: ''
+    id: a0b675de-8759-4cf4-9ce7-12210a99019d
+    name: api_endpoint
+    selector:
+    - env
+    - api_endpoint
+    value: https://seo.cochaykhong.com/api
+    value_type: string
+  - description: ''
+    id: 1276dd4d-f88b-4807-b464-e9e8dda82f78
+    name: api_key
+    selector:
+    - env
+    - api_key
+    value: LẤY KEY TẠI https://seo.cochaykhong.com/account-api
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1749173482234-source-1749173544976-target
+      selected: false
+      source: '1749173482234'
+      sourceHandle: source
+      target: '1749173544976'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1749173544976-source-1749173970536-target
+      selected: false
+      source: '1749173544976'
+      sourceHandle: source
+      target: '1749173970536'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1749174559273-source-1749174587640-target
+      selected: false
+      source: '1749174559273'
+      sourceHandle: source
+      target: '1749174587640'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1749174587640-source-1749175549089-target
+      selected: false
+      source: '1749174587640'
+      sourceHandle: source
+      target: '1749175549089'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1749173970536-source-1749176208400-target
+      source: '1749173970536'
+      sourceHandle: source
+      target: '1749176208400'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1749176208400-true-1749174559273-target
+      source: '1749176208400'
+      sourceHandle: 'true'
+      target: '1749174559273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1749176208400-false-1749176241267-target
+      source: '1749176208400'
+      sourceHandle: 'false'
+      target: '1749176241267'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Bắt đầu
+        type: start
+        variables:
+        - label: Trang web https://...
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: url
+      height: 90
+      id: '1749173482234'
+      position:
+        x: 30
+        y: 280
+      positionAbsolute:
+        x: 30
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.api_key#}}'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: key-value-1716
+            key: type
+            type: text
+            value: single
+          - id: key-value-1777
+            key: is_public
+            type: text
+            value: 'true'
+          - id: key-value-1868
+            key: check_interval_seconds
+            type: text
+            value: '864000'
+          - id: key-value-1944
+            key: url
+            type: text
+            value: '{{#1749173482234.url#}}'
+          - id: key-value-2005
+            key: ''
+            type: text
+            value: ''
+          type: form-data
+        desc: ''
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Create audits
+        type: http-request
+        url: '{{#env.api_endpoint#}}/audits'
+        variables: []
+      height: 142
+      id: '1749173544976'
+      position:
+        x: 334
+        y: 280
+      positionAbsolute:
+        x: 334
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(arg1: str) -> dict:\n    data = json.loads(arg1)\n    ids\
+          \ = data.get(\"data\", {}).get(\"ids\", [])\n    result_str = str(ids[0])\
+          \ if ids else \"\"\n    return {\n        \"result\": result_str,\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Mã
+        type: code
+        variables:
+        - value_selector:
+          - '1749173544976'
+          - body
+          variable: arg1
+      height: 54
+      id: '1749173970536'
+      position:
+        x: 638
+        y: 280
+      positionAbsolute:
+        x: 638
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.api_key#}}'
+            type: bearer
+          type: api-key
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Get audits
+        type: http-request
+        url: '{{#env.api_endpoint#}}/audits/{{#1749173970536.result#}}'
+        variables: []
+      height: 160
+      id: '1749174559273'
+      position:
+        x: 1246
+        y: 280
+      positionAbsolute:
+        x: 1246
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4.1
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: c686115b-dcc3-4330-a6df-5afc9f1eaa01
+          role: system
+          text: '# Role
+
+            Bạn là một chuyên gia phân tích SEO năm 2025 có khả năng thực hiện đánh
+            giá toàn diện cho các trang web dựa trên dữ liệu JSON.
+
+
+            ## Skills
+
+            ### Skill 1: Hiệu suất và Tốc độ tải trang
+
+            - Đánh giá các chỉ số như TTFB, thời gian phản hồi, và kích thước trang
+            để xác định hiệu suất tải trang.
+
+
+            ### Skill 2: SEO Kỹ thuật (Technical SEO)
+
+            - Kiểm tra các yếu tố như HTTPS, chứng chỉ SSL, thẻ Canonical, và cấu
+            trúc URL để đảm bảo các yếu tố kỹ thuật SEO được tối ưu hóa.
+
+
+            ### Skill 3: SEO On-page
+
+            - Phân tích thẻ title, thẻ meta description, cấu trúc các thẻ heading
+            (H1, H2), và việc sử dụng OpenGraph để tối ưu hóa nội dung trên trang.
+
+
+            ### Skill 4: Liên kết (Links) và Hình ảnh (Images)
+
+            - Đánh giá số lượng liên kết nội bộ, liên kết ngoài (đặc biệt là các liên
+            kết không an toàn), và tình trạng thẻ alt của hình ảnh để cải thiện SEO.
+
+
+            ### Skill 5: Tổng hợp và Đề xuất
+
+            - Tổng hợp các điểm mạnh, điểm yếu và đưa ra những đề xuất cụ thể, có
+            tính hành động để cải thiện thứ hạng SEO cho trang web.
+
+
+            ## Constraints
+
+            - Sử dụng dữ liệu từ trang web {{#1749173482234.url#}} và kết thúc với
+            việc xem chi tiết dữ liệu tại: https://seo.cochaykhong.com/audit/{{#1749173970536.result#}}
+
+            - Máy chủ lấy dữ liệu data đặt tại: zhost
+
+            - Máy chủ AI xử lý dữ liệu đặt tại: eztech
+
+            - Dữ liệu của trang web: {{#1749174559273.body#}}'
+        selected: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1749174587640'
+      position:
+        x: 1550
+        y: 280
+      positionAbsolute:
+        x: 1550
+        y: 280
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1749174587640'
+          - text
+          variable: text
+        selected: false
+        title: Kết thúc
+        type: end
+      height: 90
+      id: '1749175549089'
+      position:
+        x: 1854
+        y: 280
+      positionAbsolute:
+        x: 1854
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 6da7d79e-1443-4c61-9dfb-4064e8de2489
+            value: ''
+            varType: string
+            variable_selector:
+            - '1749173970536'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: NẾU/NGƯỢC LẠI
+        type: if-else
+      height: 126
+      id: '1749176208400'
+      position:
+        x: 942
+        y: 280
+      positionAbsolute:
+        x: 942
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - env
+          - alert_http
+          variable: alert_http
+        selected: false
+        title: Kết thúc 2
+        type: end
+      height: 90
+      id: '1749176241267'
+      position:
+        x: 1246
+        y: 480
+      positionAbsolute:
+        x: 1246
+        y: 480
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -2035.7667027506895
+      y: -331.33739426513523
+      zoom: 1.4000000000000004
